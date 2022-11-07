@@ -15,3 +15,4 @@ pluginManagement {
 
 rootProject.name = "Crrow"
 
+include(":web")
