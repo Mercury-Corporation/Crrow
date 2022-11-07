@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  db:
+    image: mariadb:10.9.3
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: crrow_db
+      MYSQL_USER: sample_user
+      MYSQL_PASSWORD: password
+      TZ: Asia/Tokyo
+    ports:
+      - "3306:3306"
+    networks:
+      - crrow
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:5.2.0
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+      PMA_USER: sample_user
+      PMA_PASSWORD: password
+      TZ: Asia/Tokyo
+    ports:
+      - "8081:80"
+    networks:
+      - crrow
+    depends_on:
+      - db
+    restart: always
+
+networks:
+  crrow:
+
+volumes:
+  db_data:
