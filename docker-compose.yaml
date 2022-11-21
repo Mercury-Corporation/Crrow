@@ -27,7 +27,7 @@ services:
       PMA_PASSWORD: root
       TZ: Asia/Tokyo
     ports:
-      - "8081:80"
+      - "8082:80"
     networks:
       - crrow
     depends_on:
