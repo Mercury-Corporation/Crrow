@@ -5,7 +5,6 @@ services:
     image: mariadb:10.9.3
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: crrow_db
       MYSQL_USER: sample_user
       MYSQL_PASSWORD: password
       TZ: Asia/Tokyo
@@ -14,6 +13,7 @@ services:
     networks:
       - crrow
     volumes:
+      - ./initdb:/docker-entrypoint-initdb.d
       - db_data:/var/lib/mysql
     restart: always
 
@@ -23,8 +23,8 @@ services:
       PMA_HOST: db
       PMA_PORT: 3306
       PMA_ARBITRARY: 1
-      PMA_USER: sample_user
-      PMA_PASSWORD: password
+      PMA_USER: root
+      PMA_PASSWORD: root
       TZ: Asia/Tokyo
     ports:
       - "8081:80"
