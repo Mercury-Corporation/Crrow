@@ -1,5 +1,7 @@
+@file:Suppress("UNUSED_EXPRESSION")
+
 plugins {
-    kotlin("multiplatform")
+    kotlin("js") version "1.7.10"
     id("org.jetbrains.compose")
 }
 
@@ -26,16 +28,10 @@ kotlin {
         binaries.executable()
     }
     sourceSets {
-        val jsMain by getting {
             dependencies {
-                implementation(compose.web.core)
-                implementation(compose.runtime)
-            }
-        }
-        val jsTest by getting {
-            dependencies {
-                implementation(kotlin("test-js"))
-            }
+                //Coroutines
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3")
         }
     }
 }
+
