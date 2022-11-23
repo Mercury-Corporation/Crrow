@@ -17,6 +17,14 @@ ServicesタブからDocker-compose: crrowをDeploy
 gradleタブから 
 1. backend→Tasks→application→run  
 2. web→kotlin browser→browserRun
+## デバッグ環境へ接続
+- webサーバー  
+  http://localhost:8080
+- backend  
+  http://localhost:8081
+- phpMyAdmin  
+  http://localhost:8082
+- database
 ### 各サーバー停止
 停止ボタン🟥を押す  
 ServicesタブからDocker-compose: crrowをDown
@@ -27,3 +35,8 @@ ServicesタブからDocker-compose: crrowをDown
 |   `api`   | 各モジュールから呼ばれる共通のapiが入る場所。 |
 | `backend` | APサーバー。                  |
 |   `web`   | Webサーバー。                 |
+## コーディングスタイル
+publicメソッドには必ず日本語または英語で[ドキュメント](https://kotlinlang.org/docs/kotlin-doc.html)を記載してください。  
+## gitについて
+開発をする際は[Crrow](https://github.com/Mercury-Corporation/Crrow)のフォークを作成し、ブランチを切って作業をしてください（masterブランチで作業しないでください）  
+開発が終了したら[Crrow](https://github.com/Mercury-Corporation/Crrow)のmasterブランチにPullRequestを発行し、[build-check](https://github.com/Mercury-Corporation/Crrow/actions/workflows/build_check.yaml)と一人以上の
