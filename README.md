@@ -1,3 +1,4 @@
+[![Build Check](https://github.com/Mercury-Corporation/Crrow/actions/workflows/build_check.yaml/badge.svg?branch=master)](https://github.com/Mercury-Corporation/Crrow/actions/workflows/build_check.yaml)
 # 開発者用
 ## 環境構築
 - IntelliJ IDEA Community Edition
