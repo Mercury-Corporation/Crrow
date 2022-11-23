@@ -1,6 +1,5 @@
 # 開発者用
 ## 環境構築
-### 必要ソフトウェア
 - IntelliJ IDEA
 - MySQL Workbench 8.0 CE
 - Docker Desktop
