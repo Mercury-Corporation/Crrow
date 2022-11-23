@@ -3,6 +3,7 @@
 - IntelliJ IDEA Community Edition
 - MySQL Workbench 8.0 CE
 - Docker Desktop
+- JDK17
 ### ビルド
 
 ## 各モジュール説明
