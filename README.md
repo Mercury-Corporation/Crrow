@@ -8,13 +8,16 @@
 ### apiのビルド
 gradleタブからapi→Tasks→build→build
 ### 各サーバー起動
-- データベースとphpMyAdminの起動  
+- データベースとphpMyAdmin  
 ServicesタブからDocker-compose: crrowをDeploy  
   
-- その他サーバー  
+- その他  
 gradleタブから 
 1. backend→Tasks→application→run  
 2. web→kotlin browser→browserRun
+### 各サーバー停止
+停止ボタン🟥を押す  
+ServicesタブからDocker-compose: crrowをDown
 ## 各モジュール説明
 
 |  モジュール名   | 説明                       |
