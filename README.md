@@ -1,8 +1,10 @@
 # 開発者用
 ## 環境構築
-- IntelliJ IDEA
+- IntelliJ IDEA Community Edition
 - MySQL Workbench 8.0 CE
 - Docker Desktop
+### ビルド
+
 ## 各モジュール説明
 
 |  モジュール名   | 説明                       |
