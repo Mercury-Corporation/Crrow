@@ -4,8 +4,17 @@
 - MySQL Workbench 8.0 CE
 - Docker Desktop
 - JDK17
-### ビルド
-
+## デバッグ環境構築
+### apiのビルド
+gradleタブからapi→Tasks→build→build
+### 各サーバー起動
+- データベースとphpMyAdminの起動  
+ServicesタブからDocker-compose: crrowをDeploy  
+  
+- その他サーバー  
+gradleタブから 
+1. backend→Tasks→application→run  
+2. web→kotlin browser→browserRun
 ## 各モジュール説明
 
 |  モジュール名   | 説明                       |
