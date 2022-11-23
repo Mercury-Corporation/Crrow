@@ -1,41 +1,33 @@
+@file:Suppress("UNUSED_EXPRESSION", "DEPRECATION")
+
 plugins {
-    kotlin("multiplatform")
-    id("org.jetbrains.compose")
+    kotlin("js") version "1.7.21"
 }
 
 group "com.github.ko610"
-version "1.0-SNAPSHOT"
+version = "1.0-SNAPSHOT"
 
 repositories {
-    google()
     mavenCentral()
-    maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+}
+
+dependencies {
+    testImplementation(kotlin("test"))
+    implementation("org.jetbrains.kotlin-wrappers:kotlin-react:18.2.0-pre.346")
+    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:18.2.0-pre.346")
+    implementation("org.jetbrains.kotlin-wrappers:kotlin-emotion:11.9.3-pre.346")
 }
 
 kotlin {
-    js(IR) {
-        browser {
-            testTask {
-                testLogging.showStandardStreams = true
-                useKarma {
-                    useChromeHeadless()
-                    useFirefox()
-                }
-            }
-        }
+    js(LEGACY) {
         binaries.executable()
-    }
-    sourceSets {
-        val jsMain by getting {
-            dependencies {
-                implementation(compose.web.core)
-                implementation(compose.runtime)
-            }
-        }
-        val jsTest by getting {
-            dependencies {
-                implementation(kotlin("test-js"))
+        browser {
+            commonWebpackConfig {
+                cssSupport.enabled = true
             }
         }
     }
 }
+
+
+
