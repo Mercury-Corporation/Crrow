@@ -5,6 +5,7 @@
 - Docker Desktop
 - JDK17
 ## デバッグ環境構築
+IntelliJ IDEAを開いているものとして進める
 ### apiのビルド
 gradleタブからapi→Tasks→build→build
 ### 各サーバー起動
