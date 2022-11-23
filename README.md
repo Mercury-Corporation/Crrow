@@ -39,4 +39,5 @@ ServicesタブからDocker-compose: crrowをDown
 publicメソッドには必ず日本語または英語で[ドキュメント](https://kotlinlang.org/docs/kotlin-doc.html)を記載してください。  
 ## gitについて
 開発をする際は[Crrow](https://github.com/Mercury-Corporation/Crrow)のフォークを作成し、ブランチを切って作業をしてください。（masterブランチで作業しないでください）  
-開発が終了したら[Crrow](https://github.com/Mercury-Corporation/Crrow)のmasterブランチにPullRequestを発行し、[build-check](https://github.com/Mercury-Corporation/Crrow/actions/workflows/build_check.yaml)と一人以上のreviewでApproveされたらマージできます。
+開発が終了したら[Crrow](https://github.com/Mercury-Corporation/Crrow)のmasterブランチにPullRequestを発行し、[build-check](https://github.com/Mercury-Corporation/Crrow/actions/workflows/build_check.yaml)と一人以上のreviewでApproveされたらマージできます。  
+コミットメッセージは[Conventional Commits](https://www.conventionalcommits.org/ja/v1.0.0-beta.4/)を参考にしてください。  
