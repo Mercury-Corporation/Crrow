@@ -1,4 +1,9 @@
 # 開発者用
+## 環境構築
+### 必要ソフトウェア
+- IntelliJ IDEA
+- MySQL Workbench 8.0 CE
+- Docker Desktop
 ## 各モジュール説明
 
 |  モジュール名   | 説明                       |
