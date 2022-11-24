@@ -34,6 +34,14 @@ services:
       - db
     restart: always
 
+  web:
+    image: httpd:2.4
+    ports:
+      - "8080:80"
+    volumes:
+      - ./web/build/distributions/:/usr/local/apache2/htdocs/
+    restart: always
+
 networks:
   crrow:
 
