@@ -73,44 +73,18 @@ val Topic = VFC {
 
 val ReactRouterDomApp = VFC {
     BrowserRouter {
-        div {
-            ul {
-                li {
-                    Link {
-                        to = "/"
-
-                        +"Home"
-                    }
-                }
-                li {
-                    Link {
-                        to = "/about"
-
-                        +"About"
-                    }
-                }
-                li {
-                    Link {
-                        to = "/topics"
-
-                        +"Topics"
-                    }
-                }
+        Routes {
+            Route {
+                path = "/about"
+                element = About.create()
             }
-
-            Routes {
-                Route {
-                    path = "/about"
-                    element = About.create()
-                }
-                Route {
-                    path = "/topics"
-                    element = Topics.create()
-                }
-                Route {
-                    path = "/"
-                    element = Home.create()
-                }
+            Route {
+                path = "/topics"
+                element = Topics.create()
+            }
+            Route {
+                path = "/"
+                element = Home.create()
             }
         }
     }
