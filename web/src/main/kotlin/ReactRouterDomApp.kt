@@ -7,7 +7,7 @@ import react.dom.html.ReactHTML.li
 import react.dom.html.ReactHTML.ul
 import react.router.Route
 import react.router.Routes
-import react.router.dom.BrowserRouter
+import react.router.dom.HashRouter
 import react.router.dom.Link
 import react.router.useLocation
 import react.router.useParams
@@ -72,7 +72,7 @@ val Topic = VFC {
 }
 
 val ReactRouterDomApp = VFC {
-    BrowserRouter {
+    HashRouter {
         div {
             ul {
                 li {
