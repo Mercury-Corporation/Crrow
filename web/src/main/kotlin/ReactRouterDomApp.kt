@@ -71,6 +71,14 @@ val Topic = VFC {
     }
 }
 
+val User = VFC {
+    val params = useParams()
+
+    h2 {
+        +"Your name is ${params["id"]}"
+    }
+}
+
 val ReactRouterDomApp = VFC {
     HashRouter {
         div {
@@ -106,6 +114,13 @@ val ReactRouterDomApp = VFC {
                 Route {
                     path = "/topics"
                     element = Topics.create()
+                }
+                Route {
+                    path = "/user"
+                    Route {
+                        path = ":id"
+                        element = User.create()
+                    }
                 }
                 Route {
                     path = "/"
