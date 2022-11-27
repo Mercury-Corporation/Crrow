@@ -7,16 +7,14 @@
 - JDK17
 ## デバッグ環境構築
 IntelliJ IDEAを開いているものとして進めます
-### apiのビルド
-gradleタブからapi→Tasks→build→build
+### ビルド
+gradleタブからTasks→build→build
 ### 各サーバー起動
-- データベースとphpMyAdmin  
+- データベース・phpMyAdmin・webサーバー  
 ServicesタブからDocker-compose: crrowをDeploy  
   
-- その他  
-gradleタブから 
-1. backend→Tasks→application→run  
-2. web→kotlin browser→browserRun
+- backend  
+gradleタブからbackend→Tasks→application→run  
 ## デバッグ環境へ接続
 - webサーバー  
   http://localhost:8080
