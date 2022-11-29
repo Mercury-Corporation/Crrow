@@ -1,131 +1,167 @@
+import consult.Consult
+import consult.ConsultConfirm
+import consult.ConsultRegister
+import explore.Explore
+import explore.ExploreCategory
+import explore.ExploreKeyword
+import explore.ExploreUser
+import home.Home
+import mypage.Mypage
+import mypage.MypageAnswer
+import mypage.MypageQuestion
+import profile.Profile
+import question.Question
+import question.QuestionRecommendation
+import question.QuestionUser
+import message.Messages
+import message.Message
 import react.VFC
 import react.create
-import react.dom.html.ReactHTML.div
-import react.dom.html.ReactHTML.h2
-import react.dom.html.ReactHTML.h3
-import react.dom.html.ReactHTML.li
-import react.dom.html.ReactHTML.ul
 import react.router.Route
 import react.router.Routes
 import react.router.dom.HashRouter
-import react.router.dom.Link
-import react.router.useLocation
-import react.router.useParams
+import setting.Setting
+import user.User
 
-val Home = VFC {
-    h2 {
-        +"Home"
-    }
-}
-
-val About = VFC {
-    h2 {
-        +"About"
-    }
-}
-
-val Topics = VFC {
-    val location = useLocation()
-
-    div {
-        h2 {
-            +"Topics"
-        }
-
-        ul {
-            li {
-                Link {
-                    to = "/components"
-
-                    +"Components"
-                }
-            }
-            li {
-                Link {
-                    to = "/props-v-state"
-
-                    +"Props v. State"
-                }
-            }
-        }
-
-        Routes {
-            Route {
-                path = "${location.pathname}/:topicId"
-                element = Topic.create()
-            }
-            Route {
-                path = location.pathname
-                element = h3.create { +"Please select a topic." }
-            }
-        }
-    }
-}
-
-val Topic = VFC {
-    val topicId = useParams()["topicId"]
-        ?: return@VFC
-
-    h3 {
-        +"Requested topic ID: $topicId"
-    }
-}
-
-val User = VFC {
-    val params = useParams()
-
-    h2 {
-        +"Your name is ${params["id"]}"
-    }
-}
 
 val ReactRouterDomApp = VFC {
     HashRouter {
-        div {
-            ul {
-                li {
-                    Link {
-                        to = "/"
+        Routes {
+            // home
+            Route {
+                path = "/"
+                element = Home.create()
+            }
 
-                        +"Home"
+            // consult
+            Route {
+                path = "consult/"
+
+                Route {
+                    path = ""
+                    element = Consult.create()
+                }
+
+                Route {
+                    path = "confirm/"
+                    element = ConsultConfirm.create()
+                }
+
+                Route {
+                    path = "register/"
+                    element = ConsultRegister.create()
+                }
+            }
+
+            // question
+            Route {
+                path = "question"
+
+                Route {
+                    path = ":questionId"
+                    element = Question.create()
+                }
+
+                Route {
+                    path = "recommendation/"
+                    element = QuestionRecommendation.create()
+                }
+
+                Route {
+                    path = ":userId"
+                    element = QuestionUser.create()
+                }
+            }
+
+            // explore
+            Route {
+                path = "explore/"
+
+                Route {
+                    path = ""
+                    element = Explore.create()
+                }
+
+                Route {
+                    path = "q/"
+                    Route {
+                        path = ":keyword"
+                        element = ExploreKeyword.create()
                     }
                 }
-                li {
-                    Link {
-                        to = "/about"
 
-                        +"About"
+                Route {
+                    path = "category/"
+                    Route {
+                        path = ":categoryId"
+                        element = ExploreCategory.create()
                     }
                 }
-                li {
-                    Link {
-                        to = "/topics"
 
-                        +"Topics"
+                Route {
+                    path = "user/"
+                    Route {
+                        path = ":userId"
+                        element = ExploreUser.create()
                     }
                 }
             }
 
-            Routes {
+            // mypage
+            Route {
+                path = "mypage/"
+
                 Route {
-                    path = "/about"
-                    element = About.create()
+                    path = ""
+                    element = Mypage.create()
                 }
+
                 Route {
-                    path = "/topics"
-                    element = Topics.create()
+                    path = "question/"
+                    element = MypageQuestion.create()
                 }
+
                 Route {
-                    path = "/user"
-                    Route {
-                        path = ":id"
-                        element = User.create()
-                    }
+                    path = "answer/"
+                    element = MypageAnswer.create()
                 }
+            }
+
+            // message
+            Route {
+                path = "message"
+
                 Route {
-                    path = "/"
-                    element = Home.create()
+                    path = ""
+                    element = Messages.create()
                 }
+
+                Route {
+                    path = ":userId"
+                    element = Message.create()
+                }
+            }
+
+            // user
+            Route {
+                path = "user/"
+                Route {
+                    path = ":userId"
+                    element = User.create()
+                }
+            }
+
+            // profile
+            Route {
+                path = "profile/"
+                element = Profile.create()
+            }
+
+            // setting
+            Route {
+                path = "setting/"
+                element = Setting.create()
+
             }
         }
     }
