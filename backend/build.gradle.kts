@@ -7,6 +7,7 @@ plugins {
     application
     kotlin("jvm") version "1.7.20"
     id("io.ktor.plugin") version "2.1.3"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.7.21"
 }
 
 group = "com.ko610"
@@ -26,6 +27,7 @@ dependencies {
     implementation("io.ktor:ktor-server-core-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-netty-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-auth:$ktor_version")
+    implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktor_version")
     implementation("ch.qos.logback:logback-classic:$logback_version")
     implementation("io.arrow-kt:arrow-core:$arrow_version")
     implementation("io.ktor:ktor-server-config-yaml:$ktor_version")
