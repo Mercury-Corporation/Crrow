@@ -1,15 +1,16 @@
 package com.ko610
 
+import com.ko610.dao.DatabaseFactory
+import com.ko610.plugins.configureRouting
 import io.ktor.server.application.*
-import io.ktor.server.engine.*
 import io.ktor.server.netty.*
-import com.ko610.plugins.*
 
-fun main() {
-    embeddedServer(Netty, port = 8080, host = "0.0.0.0", module = Application::module)
-        .start(wait = true)
+fun main(args: Array<String>) = run {
+    DatabaseFactory.init()
+    EngineMain.main(args)
 }
 
+@Suppress("unused")
 fun Application.module() {
     configureRouting()
 }
