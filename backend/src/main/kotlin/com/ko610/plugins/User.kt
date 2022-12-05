@@ -21,9 +21,6 @@ fun Application.userRouting() {
     install(Routing)
 
     routing {
-        get("/hello") {
-            call.respondText("hello")
-        }
         post("/user") {
             println("user")
             try {
