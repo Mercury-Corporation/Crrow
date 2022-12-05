@@ -1,5 +1,6 @@
 package com.ko610.plugins
 
+import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.contentnegotiation.*
@@ -7,19 +8,30 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.*
 
 fun Application.userRouting() {
     install(ContentNegotiation) {
-        json()
+        json(Json {
+            prettyPrint = true
+            isLenient = true
+        })
     }
 
+    install(Routing)
+
     routing {
-        get("/") {
+        get("/hello") {
             call.respondText("hello")
         }
         post("/user") {
-            val user = call.receive<User>()
-            call.respondText("your name is ${user.nickname}")
+            println("user")
+            try {
+                val user = call.receive<User>()
+                call.respond(HttpStatusCode.Created, "your name is ${user.nickname}")
+            } catch (ex: Exception) {
+                call.respond(HttpStatusCode.BadRequest, "bad request")
+            }
         }
     }
 }
