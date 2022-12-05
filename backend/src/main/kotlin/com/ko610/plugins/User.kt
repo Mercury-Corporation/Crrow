@@ -39,7 +39,6 @@ fun Application.userRouting() {
                         it[sex] = user.sex
                         it[introduction] = user.introduction
                         it[type] = 1
-                        it[coin] = 0
                     }
 
                     com.ko610.models.Setting.insert {
