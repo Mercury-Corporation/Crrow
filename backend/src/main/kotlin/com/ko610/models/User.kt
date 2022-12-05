@@ -5,7 +5,7 @@ import org.jetbrains.exposed.sql.javatime.date
 
 object User : IntIdTable("User", "id") {
     val name = varchar("name", 15)
-    val birthday = date("birthday")
+    val birthday = date("birthday").nullable()
     val sex = integer("sex")
     val introduction = varchar("introduction", 200)
     val banLevel = integer("ban_level")
