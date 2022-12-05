@@ -3,7 +3,7 @@ package com.ko610.models
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.javatime.date
 
-object Setting : Table() {
+object Setting : Table("Setting") {
     val userId = reference("User_id", User)
     val nickName = varchar("nickname", 20)
     val icon = varchar("icon", 32)
