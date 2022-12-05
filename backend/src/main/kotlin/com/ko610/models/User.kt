@@ -1,10 +1,9 @@
 package com.ko610.models
 
-import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.javatime.*
+import org.jetbrains.exposed.dao.id.IntIdTable
+import org.jetbrains.exposed.sql.javatime.date
 
-object User: Table() {
-    val id = integer("id")
+object User : IntIdTable("User", "id") {
     val name = varchar("name", 15)
     val birthday = date("birthday")
     val sex = integer("sex")
