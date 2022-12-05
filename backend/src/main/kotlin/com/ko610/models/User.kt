@@ -8,7 +8,7 @@ object User : IntIdTable("User", "id") {
     val birthday = date("birthday").nullable()
     val sex = integer("sex")
     val introduction = varchar("introduction", 200)
-    val banLevel = integer("ban_level")
+    val banLevel = integer("ban_level").default(0)
     val type = integer("type")
-    val coin = integer("coin")
+    val coin = integer("coin").default(0)
 }
