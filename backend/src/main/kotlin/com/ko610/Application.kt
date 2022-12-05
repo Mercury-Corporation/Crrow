@@ -10,6 +10,7 @@ fun main(args: Array<String>) = run {
     EngineMain.main(args)
 }
 
+@Suppress("unused")
 fun Application.module() {
     configureRouting()
 }
