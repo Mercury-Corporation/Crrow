@@ -53,10 +53,8 @@ fun Application.userRouting() {
                 call.respond(HttpStatusCode.Created)
             } catch (ex: ContentTransformationException) {
                 call.respond(HttpStatusCode.BadRequest)
-                println(ex)
             } catch (ex: Exception) {
                 call.respond(HttpStatusCode.InternalServerError)
-                println(ex.stackTraceToString())
             }
         }
     }
