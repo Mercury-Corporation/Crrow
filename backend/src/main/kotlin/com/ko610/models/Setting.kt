@@ -1,7 +1,6 @@
 package com.ko610.models
 
 import org.jetbrains.exposed.sql.Table
-import org.jetbrains.exposed.sql.javatime.date
 
 object Setting : Table("Setting") {
     val userId = reference("User_id", User)
