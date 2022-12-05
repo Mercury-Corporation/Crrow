@@ -15,7 +15,7 @@ plugins {
 group = "com.ko610"
 version = "0.0.1"
 application {
-    mainClass.set("io.ktor.server.netty.EngineMain")
+    mainClass.set("com.ko610.ApplicationKt")
 
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
