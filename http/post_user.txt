@@ -1,0 +1,1 @@
+"{\"name\":\"佐藤太郎\",\"birthday\":\"2004-05-27\",\"sex\":0,\"introduction\":\"hello\",\"nickname\":\"StaticallyTyped\",\"icon\":\"dummy\",\"email\":\"example@example.com\",\"school\":\"国際信州学院大学\"}"
