@@ -1,9 +1,6 @@
 package com.ko610.dao
 
-import kotlinx.coroutines.*
-import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.transactions.*
-import org.jetbrains.exposed.sql.transactions.experimental.*
+import org.jetbrains.exposed.sql.Database
 
 object DatabaseFactory {
     fun init() {
