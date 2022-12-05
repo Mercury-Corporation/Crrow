@@ -22,7 +22,6 @@ fun Application.userRouting() {
 
     routing {
         post("/user") {
-            println("user")
             try {
                 val user = call.receive<User>()
                 call.respond(HttpStatusCode.Created, "your name is ${user.nickname}")
