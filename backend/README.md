@@ -42,3 +42,15 @@ POST /user
 |  201   | none        | none   |
 |  400   | none        | none   |
 |  500   | none        | none   |
+
+### Userを削除
+DELETE /user/&lt;id&gt;  
+既存のユーザーを削除する。
+#### Detail
+**name**: ユーザーのid  
+#### Responses
+| Status | Description | Schema |
+|:------:|:------------|:-------|
+|  205   | none        | none   |
+|  404   | none        | none   |
+|  500   | none        | none   |
