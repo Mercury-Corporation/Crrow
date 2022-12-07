@@ -9,11 +9,9 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import org.jetbrains.exposed.sql.StdOutSqlLogger
-import org.jetbrains.exposed.sql.addLogger
-import org.jetbrains.exposed.sql.insert
-import org.jetbrains.exposed.sql.insertAndGetId
+import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
+import java.lang.NumberFormatException
 import java.time.LocalDate
 
 fun Application.userRouting() {
@@ -53,6 +51,27 @@ fun Application.userRouting() {
             } catch (ex: ContentTransformationException) {
                 call.respond(HttpStatusCode.BadRequest)
             } catch (ex: Exception) {
+                call.respond(HttpStatusCode.InternalServerError)
+            }
+        }
+        delete("/user/{id?}") {
+            try {
+                val strId = call.parameters["id"] ?: return@delete call.respond(HttpStatusCode.NotFound)
+                val intId = strId.toInt()
+                val count = transaction {
+                    addLogger(StdOutSqlLogger)
+
+                    com.ko610.models.Setting.deleteWhere { com.ko610.models.Setting.userId eq intId }
+                    com.ko610.models.User.deleteWhere { com.ko610.models.User.id eq intId }
+                }
+
+                if(count != 1)
+                    call.respond(HttpStatusCode.NotFound)
+                else
+                    call.respond(HttpStatusCode.OK)
+            } catch (ex: NumberFormatException) {
+                call.respond(HttpStatusCode.NotFound)
+            } catch (ex: Exception){
                 call.respond(HttpStatusCode.InternalServerError)
             }
         }
