@@ -68,7 +68,7 @@ fun Application.userRouting() {
                 if(count != 1)
                     call.respond(HttpStatusCode.NotFound)
                 else
-                    call.respond(HttpStatusCode.OK)
+                    call.respond(HttpStatusCode.ResetContent)
             } catch (ex: NumberFormatException) {
                 call.respond(HttpStatusCode.NotFound)
             } catch (ex: Exception){
