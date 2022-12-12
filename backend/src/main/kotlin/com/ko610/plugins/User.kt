@@ -28,6 +28,7 @@ fun Application.userRouting() {
         post("/user") {
             try {
                 val user = call.receive<User>()
+                val userSetting = call.receive<Setting>()
                 transaction {
                     addLogger(StdOutSqlLogger)
 
@@ -41,10 +42,10 @@ fun Application.userRouting() {
 
                     com.ko610.models.Setting.insert {
                         it[userId] = id
-                        it[nickname] = user.nickname
-                        it[icon] = user.icon
-                        it[email] = user.email
-                        it[school] = user.school
+                        it[nickname] = userSetting.nickname
+                        it[icon] = userSetting.icon
+                        it[email] = userSetting.email
+                        it[school] = userSetting.school
                     }
                 }
                 call.respond(HttpStatusCode.Created)
@@ -75,8 +76,32 @@ fun Application.userRouting() {
                 call.respond(HttpStatusCode.InternalServerError)
             }
         }
+        get("/user/{id?}") {
+            try {
+                println("test")
+                val strId = call.parameters["id"] ?: return@get call.respond(HttpStatusCode.NotFound)
+                val intId = strId.toInt()
+                val userProfile = transaction {
+                    addLogger(StdOutSqlLogger)
+
+                    com.ko610.models.User.select { com.ko610.models.User.id eq intId }.map{ it.toUser() }.toString()
+                }
+                call.respondText(userProfile)
+            } catch (ex: NumberFormatException) {
+                call.respond(HttpStatusCode.NotFound)
+            } catch (ex: Exception){
+                call.respond(HttpStatusCode.InternalServerError)
+            }
+        }
     }
 }
+
+fun ResultRow.toUser() = User(
+    name = this[com.ko610.models.User.name],
+    birthday = this[com.ko610.models.User.birthday].toString(),
+    sex = this[com.ko610.models.User.sex],
+    introduction = this[com.ko610.models.User.introduction],
+)
 
 @Serializable
 data class User(
@@ -84,8 +109,11 @@ data class User(
     val birthday: String,
     val sex: Int,
     val introduction: String,
-    val nickname: String,
+)
+
+data class Setting(
     val icon: String,
+    val nickname: String,
     val email: String?,
-    val school: String
+    val school: String,
 )
