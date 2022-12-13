@@ -4,7 +4,6 @@ import com.ko610.models.Setting
 import com.ko610.models.User
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
-
 import io.ktor.server.application.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.request.*
@@ -69,13 +68,13 @@ fun Application.userRouting() {
                     User.deleteWhere { User.id eq intId }
                 }
 
-                if(count != 1)
+                if (count != 1)
                     call.respond(HttpStatusCode.NotFound)
                 else
                     call.respond(HttpStatusCode.ResetContent)
             } catch (ex: NumberFormatException) {
                 call.respond(HttpStatusCode.NotFound)
-            } catch (ex: Exception){
+            } catch (ex: Exception) {
                 call.respond(HttpStatusCode.InternalServerError)
             }
         }
@@ -86,27 +85,27 @@ fun Application.userRouting() {
                 val userProfile = transaction {
                     addLogger(StdOutSqlLogger)
 
-                    val u= User.select { User.id eq intId }.single()
-                    val s= Setting.select { Setting.userId eq intId }.single()
+                    val user = User.select { User.id eq intId }.single()
+                    val setting = Setting.select { Setting.userId eq intId }.single()
 
                     GetUser(
-                        name = u[User.name],
-                        birthday = u[User.birthday].toString(),
-                        sex = u[User.sex],
-                        introduction = u[User.introduction],
-                        type = u[User.type],
-                        coin = u[User.coin],
-                        nickname = s[Setting.nickname],
-                        icon = s[Setting.icon],
-                        email = s[Setting.email],
-                        school = s[Setting.school],
-                        range = s[Setting.range],
+                        name = user[User.name],
+                        birthday = user[User.birthday].toString(),
+                        sex = user[User.sex],
+                        introduction = user[User.introduction],
+                        type = user[User.type],
+                        coin = user[User.coin],
+                        nickname = setting[Setting.nickname],
+                        icon = setting[Setting.icon],
+                        email = setting[Setting.email],
+                        school = setting[Setting.school],
+                        range = setting[Setting.range],
                     )
                 }
                 call.respondText(Json.encodeToString(userProfile), ContentType.Text.Plain, HttpStatusCode.OK)
             } catch (ex: NumberFormatException) {
                 call.respond(HttpStatusCode.NotFound)
-            } catch (ex: Exception){
+            } catch (ex: Exception) {
                 call.respond(HttpStatusCode.InternalServerError)
             }
         }
