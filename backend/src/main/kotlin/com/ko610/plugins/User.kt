@@ -1,7 +1,10 @@
 package com.ko610.plugins
 
+import com.ko610.models.Setting
+import com.ko610.models.User
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
+
 import io.ktor.server.application.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.request.*
@@ -9,6 +12,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.encodeToString
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import java.lang.NumberFormatException
@@ -27,12 +31,11 @@ fun Application.userRouting() {
     routing {
         post("/user") {
             try {
-                val user = call.receive<User>()
-                val userSetting = call.receive<Setting>()
+                val user = call.receive<PostUser>()
                 transaction {
                     addLogger(StdOutSqlLogger)
 
-                    val id = com.ko610.models.User.insertAndGetId {
+                    val id = User.insertAndGetId {
                         it[name] = user.name
                         it[birthday] = LocalDate.parse(user.birthday)
                         it[sex] = user.sex
@@ -40,12 +43,12 @@ fun Application.userRouting() {
                         it[type] = 1
                     }
 
-                    com.ko610.models.Setting.insert {
+                    Setting.insert {
                         it[userId] = id
-                        it[nickname] = userSetting.nickname
-                        it[icon] = userSetting.icon
-                        it[email] = userSetting.email
-                        it[school] = userSetting.school
+                        it[nickname] = user.nickname
+                        it[icon] = user.icon
+                        it[email] = user.email
+                        it[school] = user.school
                     }
                 }
                 call.respond(HttpStatusCode.Created)
@@ -62,8 +65,8 @@ fun Application.userRouting() {
                 val count = transaction {
                     addLogger(StdOutSqlLogger)
 
-                    com.ko610.models.Setting.deleteWhere { com.ko610.models.Setting.userId eq intId }
-                    com.ko610.models.User.deleteWhere { com.ko610.models.User.id eq intId }
+                    Setting.deleteWhere { Setting.userId eq intId }
+                    User.deleteWhere { User.id eq intId }
                 }
 
                 if(count != 1)
@@ -78,15 +81,29 @@ fun Application.userRouting() {
         }
         get("/user/{id?}") {
             try {
-                println("test")
                 val strId = call.parameters["id"] ?: return@get call.respond(HttpStatusCode.NotFound)
                 val intId = strId.toInt()
                 val userProfile = transaction {
                     addLogger(StdOutSqlLogger)
 
-                    com.ko610.models.User.select { com.ko610.models.User.id eq intId }.map{ it.toUser() }.toString()
+                    val u= User.select { User.id eq intId }.single()
+                    val s= Setting.select { Setting.userId eq intId }.single()
+
+                    GetUser(
+                        name = u[User.name],
+                        birthday = u[User.birthday].toString(),
+                        sex = u[User.sex],
+                        introduction = u[User.introduction],
+                        type = u[User.type],
+                        coin = u[User.coin],
+                        nickname = s[Setting.nickname],
+                        icon = s[Setting.icon],
+                        email = s[Setting.email],
+                        school = s[Setting.school],
+                        range = s[Setting.range],
+                    )
                 }
-                call.respondText(userProfile)
+                call.respondText(Json.encodeToString(userProfile), ContentType.Text.Plain, HttpStatusCode.OK)
             } catch (ex: NumberFormatException) {
                 call.respond(HttpStatusCode.NotFound)
             } catch (ex: Exception){
@@ -96,24 +113,31 @@ fun Application.userRouting() {
     }
 }
 
-fun ResultRow.toUser() = User(
-    name = this[com.ko610.models.User.name],
-    birthday = this[com.ko610.models.User.birthday].toString(),
-    sex = this[com.ko610.models.User.sex],
-    introduction = this[com.ko610.models.User.introduction],
-)
 
 @Serializable
-data class User(
+data class PostUser(
     val name: String,
     val birthday: String,
     val sex: Int,
     val introduction: String,
+    val nickname: String,
+    val icon: String,
+    val email: String?,
+    val school: String
 )
 
-data class Setting(
-    val icon: String,
+@Serializable
+data class GetUser(
+    val name: String,
+    val birthday: String,
+    val sex: Int,
+    val introduction: String,
+    val type: Int,
+    val coin: Int,
     val nickname: String,
+    val icon: String,
     val email: String?,
     val school: String,
+    val range: Int,
 )
+
