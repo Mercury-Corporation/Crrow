@@ -103,6 +103,8 @@ fun Application.userRouting() {
                     )
                 }
                 call.respondText(Json.encodeToString(userProfile), ContentType.Text.Plain, HttpStatusCode.OK)
+            } catch (ex: NoSuchElementException) {
+                call.respond(HttpStatusCode.NotFound)
             } catch (ex: NumberFormatException) {
                 call.respond(HttpStatusCode.NotFound)
             } catch (ex: Exception) {

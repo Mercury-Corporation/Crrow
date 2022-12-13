@@ -63,6 +63,6 @@ GET /user/&lt;id&gt;
 #### Responses
 | Status | Description | Schema |
 |:------:|:------------|:-------|
-|  205   | none        | none   |
+|  200   | none        | none   |
 |  404   | none        | none   |
 |  500   | none        | none   |
