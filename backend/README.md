@@ -11,7 +11,7 @@ curl -Method Post -Uri $uri -Body $body -ContentType 'application/json'
 ```shell
 # ユーザーを更新する
 $uri = 'http://localhost:8081/user/1'
-$body = [System.Text.Encoding]::UTF8.GetBytes('{"name":"高専次郎","birthday":"2004-12-27","sex":0,"introduction":"こんにちは世界","coin":0,"type":0,"nickname":"kosentr","icon":"dummy","email":"example@example.com","school":"福島高専","range":10}')
+$body = [System.Text.Encoding]::UTF8.GetBytes('{"birthday":"2004-12-27","sex":0,"introduction":"こんにちは世界","nickname":"kosentr","icon":"dummy","email":"example@example.com","school":"福島高専","range":10}')
 curl -Method Put -Uri $uri -Body $body -ContentType 'application/json' 
 ```
 
@@ -76,8 +76,7 @@ GET /user/&lt;id&gt;
 PUT /user/&lt;id&gt;
 既存のプロフィールを更新する。
 #### Detail
-**id**: ユーザーのid
-**name**: 本名（15文字）  
+**id**: ユーザーのid 
 **birthday**: 誕生日  
 **sex**: 性別（0.無回答 1.男 2.女 9.その他）  
 **introduction**: 自己紹介（200文字）  
@@ -85,8 +84,6 @@ PUT /user/&lt;id&gt;
 **icon**: アイコンのファイル名（32文字）  
 **email**: メールアドレス（20文字、任意）。  
 **school**: 学校名（13文字）
-**type**: タイプ
-**coin**: コイン
 #### Responses
 | Status | Description | Schema |
 |:------:|:------------|:-------|
