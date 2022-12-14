@@ -54,3 +54,15 @@ DELETE /user/&lt;id&gt;
 |  205   | none        | none   |
 |  404   | none        | none   |
 |  500   | none        | none   |
+
+
+### Profileを取得
+GET /user/&lt;id&gt;
+#### Detail
+**name**: ユーザーのid
+#### Responses
+| Status | Description | Schema |
+|:------:|:------------|:-------|
+|  200   | none        | none   |
+|  404   | none        | none   |
+|  500   | none        | none   |
