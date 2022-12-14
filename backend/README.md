@@ -8,6 +8,13 @@ $body = [System.Text.Encoding]::UTF8.GetBytes('{"name":"高専太郎","birthday"
 curl -Method Post -Uri $uri -Body $body -ContentType 'application/json' 
 ```
 
+```shell
+# ユーザーを更新する
+$uri = 'http://localhost:8081/user/1'
+$body = [System.Text.Encoding]::UTF8.GetBytes('{"name":"高専次郎","birthday":"2004-12-27","sex":0,"introduction":"こんにちは世界","coin":0,"type":0,"nickname":"kosentr","icon":"dummy","email":"example@example.com","school":"福島高専","range":10}')
+curl -Method Put -Uri $uri -Body $body -ContentType 'application/json' 
+```
+
 ## Base URL
 http://localhost:8081
 ## Users
@@ -47,19 +54,39 @@ POST /user
 DELETE /user/&lt;id&gt;  
 既存のユーザーを削除する。
 #### Detail
-**name**: ユーザーのid  
+**id**: ユーザーのid  
 #### Responses
 | Status | Description | Schema |
 |:------:|:------------|:-------|
 |  205   | none        | none   |
 |  404   | none        | none   |
 |  500   | none        | none   |
-
-
 ### Profileを取得
 GET /user/&lt;id&gt;
+既存のプロフィールを取得する。
 #### Detail
-**name**: ユーザーのid
+**id**: ユーザーのid
+#### Responses
+| Status | Description | Schema |
+|:------:|:------------|:-------|
+|  200   | none        | none   |
+|  404   | none        | none   |
+|  500   | none        | none   |
+### Profileを更新
+PUT /user/&lt;id&gt;
+既存のプロフィールを更新する。
+#### Detail
+**id**: ユーザーのid
+**name**: 本名（15文字）  
+**birthday**: 誕生日  
+**sex**: 性別（0.無回答 1.男 2.女 9.その他）  
+**introduction**: 自己紹介（200文字）  
+**nickname**: ニックネーム（20文字）  
+**icon**: アイコンのファイル名（32文字）  
+**email**: メールアドレス（20文字、任意）。  
+**school**: 学校名（13文字）
+**type**: タイプ
+**coin**: コイン
 #### Responses
 | Status | Description | Schema |
 |:------:|:------------|:-------|

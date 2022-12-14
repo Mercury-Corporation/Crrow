@@ -111,6 +111,43 @@ fun Application.userRouting() {
                 call.respond(HttpStatusCode.InternalServerError)
             }
         }
+        put("/user/{id?}") {
+            try {
+                val user = call.receive<UpdateUser>()
+                val strId = call.parameters["id"] ?: return@put call.respond(HttpStatusCode.NotFound)
+                val intId = strId.toInt()
+
+                val count = transaction {
+                    addLogger(StdOutSqlLogger)
+
+                    User.update({ User.id eq intId })
+                    {
+                        it[name] = user.name
+                        it[birthday] = LocalDate.parse(user.birthday)
+                        it[sex] = user.sex
+                        it[introduction] = user.introduction
+                        it[type] = user.type
+                        it[coin] = user.coin
+                    }
+
+                    Setting.update({ Setting.userId eq intId }) {
+                        it[nickname] = user.nickname
+                        it[icon] = user.icon
+                        it[email] = user.email
+                        it[school] = user.school
+                        it[range] = user.range
+                    }
+                }
+                if (count != 1)
+                    call.respond(HttpStatusCode.NotFound)
+                else
+                    call.respond(HttpStatusCode.OK)
+            } catch (ex: NumberFormatException) {
+                call.respond(HttpStatusCode.NotFound)
+            } catch (ex: Exception) {
+                call.respond(HttpStatusCode.InternalServerError)
+            }
+        }
     }
 }
 
@@ -129,6 +166,21 @@ data class PostUser(
 
 @Serializable
 data class GetUser(
+    val name: String,
+    val birthday: String,
+    val sex: Int,
+    val introduction: String,
+    val type: Int,
+    val coin: Int,
+    val nickname: String,
+    val icon: String,
+    val email: String?,
+    val school: String,
+    val range: Int,
+)
+
+@Serializable
+data class UpdateUser(
     val name: String,
     val birthday: String,
     val sex: Int,
