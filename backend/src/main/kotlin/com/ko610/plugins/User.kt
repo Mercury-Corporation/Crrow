@@ -122,12 +122,9 @@ fun Application.userRouting() {
 
                     User.update({ User.id eq intId })
                     {
-                        it[name] = user.name
                         it[birthday] = LocalDate.parse(user.birthday)
                         it[sex] = user.sex
                         it[introduction] = user.introduction
-                        it[type] = user.type
-                        it[coin] = user.coin
                     }
 
                     Setting.update({ Setting.userId eq intId }) {
@@ -142,6 +139,8 @@ fun Application.userRouting() {
                     call.respond(HttpStatusCode.NotFound)
                 else
                     call.respond(HttpStatusCode.OK)
+            } catch (ex: ContentTransformationException) {
+                call.respond(HttpStatusCode.NotFound)
             } catch (ex: NumberFormatException) {
                 call.respond(HttpStatusCode.NotFound)
             } catch (ex: Exception) {
@@ -181,12 +180,9 @@ data class GetUser(
 
 @Serializable
 data class UpdateUser(
-    val name: String,
     val birthday: String,
     val sex: Int,
     val introduction: String,
-    val type: Int,
-    val coin: Int,
     val nickname: String,
     val icon: String,
     val email: String?,
